@@ -1,0 +1,82 @@
+body {
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
+span#playerScore,
+span#cpuScore {
+  font-size: 100px;
+  color: cornflowerblue;
+  font-weight: bold;
+}
+
+h2.resultHeader {
+  font-size: 48px;
+  color: cornflowerblue;
+  text-decoration-line: underline;
+}
+
+h2.resultHeader2 {
+  font-size: 36px;
+  color: cornflowerblue;
+  text-decoration-line: underline;
+}
+
+.container {
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gameSelection {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 50vw;
+}
+
+.gameResults {
+  background-color: black;
+  display: flex;
+  height: 100vh;
+  width: 50vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.playerResults {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 75%;
+}
+
+.cpuResults {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 75%;
+}
+
+button {
+  background-color: cornflowerblue;
+  border: none;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 7px;
+  font-size: 24px;
+  width: 300px;
+  height: 100px;
+}
+
+button:hover {
+  transform: scale(1.1);
+}

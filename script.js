@@ -30,13 +30,13 @@ function playerSelect() {
   }
 }
 
-function game() {
-  for (let i = 0; i < 5; i++) {
-    playerSelect();
-    // console.log(playerSelection);
-    computerSelection = computerPlay();
-    console.log(playRound(playerSelection, computerSelection));
-  }
+// function game() {
+//   for (let i = 0; i < 5; i++) {
+//     playerSelect();
+//     // console.log(playerSelection);
+//     computerSelection = computerPlay();
+//     console.log(playRound(playerSelection, computerSelection));
+//   }
   function playRound(playerSelection, computerSelection) {
     // Convert player and random computer choice to uppercase for logic comparisons
 
@@ -75,4 +75,4 @@ function game() {
   }
 }
 
-game();
+// game();
