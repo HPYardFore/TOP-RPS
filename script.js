@@ -1,78 +1,71 @@
-let playerSelection = '';
-let computerSelection = '';
+// Declare variables to hold score for current game
+let playerScore = 0;
+let cpuScore = 0;
 let message = '';
-let r = 'ROCK';
-let p = 'PAPER';
-let s = 'SCISSORS';
 
-function computerPlay() {
+// Declare variable for # of rounds
+let rounds = 5;
+
+// declare constants for changing score in <span> elements
+const player = document.querySelector('#playerScore');
+const computer = document.querySelector('#cpuScore');
+
+// Set random computer selection before player selection
+
+const computerPlay = () => {
   let choices = ['Rock', 'Paper', 'Scissors'];
   let randChoice = Math.floor(Math.random() * 3);
   let result = choices[randChoice];
   return result;
-}
+};
 
-function playerSelect() {
-  playerSelection = window.prompt(
-    'Rock, Paper, Scissors! Type your selection to play!',
-    'Rock'
-  );
-  playerSelection = playerSelection.toString().toUpperCase().trim();
-  if (playerSelection === r || playerSelection === s || playerSelection === p) {
-    return playerSelection;
-  } else {
-    playerSelection = window.prompt(
-      `Invalid entry! Please type ${r}, ${p}, or ${s} to try again!`,
-      'Rock'
-    );
-    playerSelection = playerSelection.toString().toUpperCase().trim();
-    return playerSelection;
+// Identify which button was selected and pass into playRound function
+const playerButtons = document.querySelectorAll('button');
+playerButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    playRound(button.value);
+  });
+});
+
+function playRound(playerSelection) {
+  computerSelection = computerPlay();
+  console.log(playerSelection, computerSelection);
+  // Handle Tie Game
+  if (playerSelection === computerSelection) {
+    tieGame();
+  }
+  // Game Logic
+  // Paper beats Rock
+
+  if (playerSelection === 'Paper' && computerSelection === 'Rock') {
+    playerWin();
+  } else if (playerSelection === 'Rock' && computerSelection === 'Paper') {
+    computerWin();
+  }
+
+  // Rock beats Scissors
+  if (playerSelection === 'Rock' && computerSelection === 'Scissors') {
+    playerWin();
+  } else if (playerSelection === 'Scissors' && computerSelection === 'Rock') {
+    computerWin();
+  }
+
+  // Scissors beats Paper
+  if (playerSelection === 'Scissors' && computerSelection === 'Paper') {
+    playerWin();
+  } else if (playerSelection === 'Paper' && computerSelection === 'Scissors') {
+    computerWin();
   }
 }
 
-// function game() {
-//   for (let i = 0; i < 5; i++) {
-//     playerSelect();
-//     // console.log(playerSelection);
-//     computerSelection = computerPlay();
-//     console.log(playRound(playerSelection, computerSelection));
-//   }
-  function playRound(playerSelection, computerSelection) {
-    // Convert player and random computer choice to uppercase for logic comparisons
-
-    // playerSelection = playerSelection.toString().toUpperCase().trim();
-    computerSelection = computerSelection.toString().toUpperCase().trim();
-
-    // Check player input for invalid entries
-
-    // Handle Tie Game
-    if (playerSelection === computerSelection) {
-      return (message = `Tie Game! ${playerSelection} ties with ${computerSelection}! Please try again!`);
-    }
-
-    // Game Logic
-    // Paper beats Rock
-
-    if (playerSelection === p && computerSelection === r) {
-      return (message = `You Win! ${playerSelection} beats ${computerSelection}!`);
-    } else if (playerSelection === r && computerSelection === p) {
-      return (message = `You Lost! ${computerSelection} beats ${playerSelection}`);
-    }
-
-    // Rock beats Scissors
-    if (playerSelection === r && computerSelection === s) {
-      return (message = `You Win! ${playerSelection} beats ${computerSelection}!`);
-    } else if (playerSelection === s && computerSelection === r) {
-      return (message = `You Lost! ${computerSelection} beats ${playerSelection}`);
-    }
-
-    // Scissors beats Paper
-    if (playerSelection === s && computerSelection === p) {
-      return (message = `You Win! ${playerSelection} beats ${computerSelection}!`);
-    } else if (playerSelection === p && computerSelection === s) {
-      return (message = `You Lost! ${computerSelection} beats ${playerSelection}`);
-    }
-  }
+function playerWin() {
+  playerScore++;
+  player.textContent = playerScore;
 }
 
-// game();
+function computerWin() {
+  cpuScore++;
+  computer.textContent = cpuScore;
+}
+
+function tieGame() {}
