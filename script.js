@@ -1,6 +1,7 @@
 // Declare variables to hold score for current game
 let playerScore = 0;
 let cpuScore = 0;
+let gameOver = false;
 
 // Declare variable for # of rounds - default to 5
 let rounds = 5;
@@ -9,27 +10,31 @@ let rounds = 5;
 const player = document.querySelector('#playerScore');
 const computer = document.querySelector('#cpuScore');
 
-// declare contast for changing game status messages
+// declare constant for changing game status messages
+const gameMessages = document.querySelector('.gameMessages');
 const message = document.querySelector('.results');
+const roundCount = document.querySelector('.numRounds');
+const finalMessage = document.querySelector('.gameOver');
 
 // Change # of rounds
 
 const gameRounds = document.querySelectorAll('.rounds');
 gameRounds.forEach((button) => {
   button.addEventListener('click', () => {
-    resetGame(button.value);
-    console.log(rounds);
+    rounds = button.value;
+    roundCount.textContent = `Best out of ${rounds}!`;
     message.textContent = `Game Reset! New game, best of ${rounds} wins!`;
-    // reset scores back to 0
+    resetGame();
   });
 });
 
-function resetGame(num) {
+function resetGame() {
   playerScore = 0;
   cpuScore = 0;
-  rounds = num;
+  gameOver = false;
   player.textContent = playerScore;
   computer.textContent = cpuScore;
+  finalMessage.textContent = ``;
 }
 
 // Set random computer selection before player selection
@@ -44,6 +49,9 @@ const computerPlay = () => {
 const playerButtons = document.querySelectorAll('button.player');
 playerButtons.forEach((button) => {
   button.addEventListener('click', () => {
+    if (gameOver) {
+      resetGame();
+    }
     playRound(button.value);
   });
 });
@@ -79,21 +87,32 @@ function playRound(playerSelection) {
   }
 }
 
+function checkWinner() {
+  let checkScore = rounds * 0.5;
+  if (playerScore > checkScore) {
+    finalMessage.textContent = `Congratulations! You Won!`;
+    gameOver = true;
+  } else if (cpuScore > checkScore) {
+    finalMessage.textContent = `You lost! Try Again!`;
+    gameOver = true;
+  }
+}
+
 function playerWin(a, b) {
   playerScore++;
   player.textContent = playerScore;
   message.textContent = `You won this round! 
   ${a} beats ${b}!`;
+  checkWinner();
 }
 
 function computerWin(a, b) {
   cpuScore++;
   computer.textContent = cpuScore;
-  message.textContent = `You lost this round! \r 
-  ${b} beats ${a}!`;
+  message.textContent = `You lost this round! ${b} beats ${a}!`;
+  checkWinner();
 }
 
 function tieGame(a, b) {
-  message.textContent = `Tie Game, try again! \r
-  ${a} matches ${b}!`;
+  message.textContent = `Tie Game!! ${a} matches ${b}!`;
 }
