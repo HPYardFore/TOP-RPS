@@ -1,17 +1,38 @@
 // Declare variables to hold score for current game
 let playerScore = 0;
 let cpuScore = 0;
-let message = '';
 
-// Declare variable for # of rounds
+// Declare variable for # of rounds - default to 5
 let rounds = 5;
 
 // declare constants for changing score in <span> elements
 const player = document.querySelector('#playerScore');
 const computer = document.querySelector('#cpuScore');
 
-// Set random computer selection before player selection
+// declare contast for changing game status messages
+const message = document.querySelector('.results');
 
+// Change # of rounds
+
+const gameRounds = document.querySelectorAll('.rounds');
+gameRounds.forEach((button) => {
+  button.addEventListener('click', () => {
+    resetGame(button.value);
+    console.log(rounds);
+    message.textContent = `Game Reset! New game, best of ${rounds} wins!`;
+    // reset scores back to 0
+  });
+});
+
+function resetGame(num) {
+  playerScore = 0;
+  cpuScore = 0;
+  rounds = num;
+  player.textContent = playerScore;
+  computer.textContent = cpuScore;
+}
+
+// Set random computer selection before player selection
 const computerPlay = () => {
   let choices = ['Rock', 'Paper', 'Scissors'];
   let randChoice = Math.floor(Math.random() * 3);
@@ -20,7 +41,7 @@ const computerPlay = () => {
 };
 
 // Identify which button was selected and pass into playRound function
-const playerButtons = document.querySelectorAll('button');
+const playerButtons = document.querySelectorAll('button.player');
 playerButtons.forEach((button) => {
   button.addEventListener('click', () => {
     playRound(button.value);
@@ -32,40 +53,47 @@ function playRound(playerSelection) {
   console.log(playerSelection, computerSelection);
   // Handle Tie Game
   if (playerSelection === computerSelection) {
-    tieGame();
+    tieGame(playerSelection, computerSelection);
   }
   // Game Logic
   // Paper beats Rock
 
   if (playerSelection === 'Paper' && computerSelection === 'Rock') {
-    playerWin();
+    playerWin(playerSelection, computerSelection);
   } else if (playerSelection === 'Rock' && computerSelection === 'Paper') {
-    computerWin();
+    computerWin(playerSelection, computerSelection);
   }
 
   // Rock beats Scissors
   if (playerSelection === 'Rock' && computerSelection === 'Scissors') {
-    playerWin();
+    playerWin(playerSelection, computerSelection);
   } else if (playerSelection === 'Scissors' && computerSelection === 'Rock') {
-    computerWin();
+    computerWin(playerSelection, computerSelection);
   }
 
   // Scissors beats Paper
   if (playerSelection === 'Scissors' && computerSelection === 'Paper') {
-    playerWin();
+    playerWin(playerSelection, computerSelection);
   } else if (playerSelection === 'Paper' && computerSelection === 'Scissors') {
-    computerWin();
+    computerWin(playerSelection, computerSelection);
   }
 }
 
-function playerWin() {
+function playerWin(a, b) {
   playerScore++;
   player.textContent = playerScore;
+  message.textContent = `You won this round! 
+  ${a} beats ${b}!`;
 }
 
-function computerWin() {
+function computerWin(a, b) {
   cpuScore++;
   computer.textContent = cpuScore;
+  message.textContent = `You lost this round! \r 
+  ${b} beats ${a}!`;
 }
 
-function tieGame() {}
+function tieGame(a, b) {
+  message.textContent = `Tie Game, try again! \r
+  ${a} matches ${b}!`;
+}

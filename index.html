@@ -9,23 +9,37 @@
     <title>Rock Paper Scissors</title>
   </head>
   <body>
-    <div class="container">
-      <div class="gameSelection">
-        <button class="rock" value="Rock"><i class="fa-solid fa-hand-back-fist fa-2x1"></i>Rock</button>
-        <button class="paper" value="Paper">Paper</button>
-        <button class="scissors" value="Scissors">Scissors</button>
+    <div class="mainContainer">
+      <div class="headContainer">
+        <h1>Rock Paper Scissors</h1>
+        <h2 class="numRounds">Best out of 5!</h3>
       </div>
-      <div class="gameResults">
-        <h2 class="resultHeader">Results</h2>
-        <div class="playerResults">
-          <h2 class="resultHeader2">Player:</h2>
-          <span id="playerScore">0</span>
+      <div class="gameContainer">
+        <div class="gameSelection">
+          <button class="player" value="Rock">Rock</button>
+          <button class="player" value="Paper">Paper</button>
+          <button class="player" value="Scissors">Scissors</button>
         </div>
-        <div class="cpuResults">
-          <h2 class="resultHeader2">Computer:</h2>
-          <span id="cpuScore">0 </span>
+        <div class="gameMessages">
+          <h3 class="results"></h3>
         </div>
-      
+        <div class="gameResults">
+          <h2 class="resultHeader">Results</h2>
+          <div class="playerResults">
+            <h2 class="resultHeader2">Player:</h2>
+            <span id="playerScore">0</span>
+          </div>
+          <div class="cpuResults">
+            <h2 class="resultHeader2">Computer:</h2>
+            <span id="cpuScore">0 </span>
+          </div>
+        </div>
+      </div>
+      <div class="footerContainer">
+        <button class="rounds" value="3">Best of 3</button>
+        <button class="rounds" value="5">Best of 5</button>
+        <button class="rounds" value="7">Best of 7</button>
+      </div>
     </div>
   </body>
 </html>
